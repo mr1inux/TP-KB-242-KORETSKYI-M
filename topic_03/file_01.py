@@ -1,7 +1,10 @@
-num = 1
-while num < 10:
+
+while True:
     print('--------------------------------')
     W = input("Dia: ")
+    if W == "ex":
+        print('exit')
+        break
     a = float(input("F num: "))
     b = float(input("S num: "))
 
