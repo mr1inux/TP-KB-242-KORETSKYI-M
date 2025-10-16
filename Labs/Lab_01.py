@@ -3,13 +3,13 @@
 
 # already sorted list
 list = [
-    {"name": "Adams Bob", "phone": "0631234567",
+    {"name": "Bob", "phone": "0631234567",
         "email": "damsbob@gmail.com", "group": "kb-242"},
-    {"name": "Carter Emma", "phone": "0631234567",
+    {"name": "Emma", "phone": "0631234567",
         "email": "carteremma@gmail.com", "group": "kb-242"},
-    {"name": "Green Jon",  "phone": "0631234567",
+    {"name": "Jon",  "phone": "0631234567",
         "email": "greenjon@gmail.com", "group": "kb-242"},
-    {"name": "Ross Zak",  "phone": "0631234567",
+    {"name": "Zak",  "phone": "0631234567",
         "email": "rosszak@gmail.com", "group": "kb-242"}
 ]
 
@@ -61,14 +61,25 @@ def deleteElement():
 
 def updateElement():
     name = input("Please enter name to be updated data: ")
-    for item in list:
+    for i, item in enumerate(list):
         if item["name"] == name:
-            item["name"] = input("Enter new name: ")
-            item["phone"] = input("Enter new phone: ")
-            item["email"] = input("Enter new email: ")
-            item["group"] = input("Enter new group: ")
+            upname = input("Enter new name: ")
+            upphone = input("Enter new phone: ")
+            upemail = input("Enter new email: ")
+            upgroup = input("Enter new group: ")
 
-            list.sort(key=lambda x: x["name"])
+            updateItem = {"name": upname, "phone": upphone,
+                          "email": upemail, "group": upgroup}
+            del list[i]
+
+            insertPosition = 0
+            for n in list:
+                if upname > n["name"]:
+                    insertPosition += 1
+                else:
+                    break
+            list.insert(insertPosition, updateItem)
+            print("Element update")
             return
 
     print("Element was not found")
