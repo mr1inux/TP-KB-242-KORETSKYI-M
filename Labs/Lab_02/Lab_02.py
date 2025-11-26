@@ -1,4 +1,5 @@
 import csv
+from sys import argv
 
 # -----------<For test>-----------#
 
@@ -95,16 +96,16 @@ def updateElement(list):
 # ---------------------------------------------------
 
 
-def readDataFromFile(studentList):
-    with open("Labs/Lab_02/Lab_02.csv") as file:
+def readDataFromFile(studentList, inputfile):
+    with open(inputfile) as file:
         reader = csv.DictReader(file)
         for row in reader:
             studentList.append(
                 {"name": row["Studname"], "phone": row["Phone"], "email": row["Gmail"], "group": row["Group"]})
 
 
-def saveData(studlist):
-    with open("Labs/Lab_02/Lab_02.csv", "w", newline="") as file:
+def saveData(studlist, inputfile):
+    with open(inputfile, "w", newline="") as file:
         fieldnames = ["Studname", "Phone", "Gmail", "Group"]
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
@@ -122,7 +123,14 @@ def saveData(studlist):
 def main():
 
     student_list = []
-    readDataFromFile(student_list)
+
+    if len(argv) < 2:
+        print("Example: py Labs/Lab_02/Lab_02.py Labs/Lab_02/Lab_02.csv")
+        return
+
+    inputfile = argv[1]
+
+    readDataFromFile(student_list, inputfile)
     while True:
         chouse = input(
             "Please specify the action [ C create, U update, D delete, P print,  X exit ] ")
@@ -142,7 +150,7 @@ def main():
                 printAllList(student_list)
             case "X" | "x":
                 print("Saved data and Exit")
-                saveData(student_list)
+                saveData(student_list, inputfile)
                 break
             case _:
                 print("Wrong chouse")
